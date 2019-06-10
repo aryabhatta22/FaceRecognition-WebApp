@@ -50,9 +50,28 @@ class App extends Component {
         box: {},
         route: 'signin',
         isSignedIn: false,
+        user: {
+            id: '',
+            name: '',
+            email: '',
+            password: '',
+            enteries: 0,
+            joined: ''
+        }
     }
       }
     
+    
+    loadUser= (data ) => {
+        this.setState({user: {
+            id: data.id,
+            name: data.name,
+            email:data.email,
+            password: data.password,
+            enteries: data.enteries,
+            joined: data.joined
+                     }})
+    }
     
     componentDidMount () {
         fetch('http://localhost:3001')
@@ -126,7 +145,8 @@ onRouteChange = (route) => {
         : ( 
        route=== 'signin'
         ?<Signin onRouteChange={this.onRouteChange} />
-      : <Register onRouteChange={this.onRouteChange} />
+      : <Register 
+    loadUser={this.loadUser}    onRouteChange={this.onRouteChange} />
     )
         
         }
