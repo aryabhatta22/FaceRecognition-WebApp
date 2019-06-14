@@ -73,11 +73,6 @@ class App extends Component {
                      }})
     }
     
-    componentDidMount () {
-        fetch('http://localhost:3001')
-        .then(response => response.json())
-        .then(console.log)
-    }
  
 calculateFaceLocation= (res) => {
     
@@ -145,29 +140,29 @@ onRouteChange = (route) => {
     return (
       
     <div className="App">
-          <Particles className='particles' params={particleOptions}/>
-        
-      <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
-        {
-        
-        route==='home' 
-        ? <div>
-        <Logo />
-      <Rank
-        name={this.state.user.name}
-        enteries={this.state.user.enteries}
-        />
-      <ImageLinkForm 
-        onInputChange= {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-      <FaceRecognition box={box} imageUrl={imageUrl}/> 
-        </div>
-        : ( 
-       route=== 'signin'
-        ?<Signin onRouteChange={this.onRouteChange} />
-      : <Register 
-    loadUser={this.loadUser}    onRouteChange={this.onRouteChange} />
-    )
-        
+        <Particles className='particles' params={particleOptions}/>
+          
+        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+          {
+          
+              route==='home' 
+              ? <div>
+                  <Logo />
+                  <Rank
+                    name={this.state.user.name}
+                    enteries={this.state.user.enteries}
+                    />
+                  <ImageLinkForm 
+                    onInputChange= {this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+                  <FaceRecognition box={box} imageUrl={imageUrl}/> 
+              </div>
+              : ( 
+             route=== 'signin'
+              ?<Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
+            : <Register 
+          loadUser={this.loadUser}    onRouteChange={this.onRouteChange} />
+          )
+          
         }
     </div>
   );
