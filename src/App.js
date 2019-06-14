@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
+
 
 import Navigation from './components/navigation/navigation';
 import Logo from './components/logo/logo'
@@ -14,9 +14,6 @@ import Register from './components/register/register';
 import './App.css';
 
 
-const app = new Clarifai.App({
-    apiKey: '636faf6222004476b96b13b0b4c9a90f'
-});
 
 const particleOptions ={
     
@@ -40,12 +37,8 @@ const particleOptions ={
 
 }
 
-class App extends Component {
-  
-    constructor() {
-      super();
-    this.state= {
-        input: '',
+const intialState = {
+   input: '',
         imageUrl: '',
         box: {},
         route: 'signin',
@@ -57,8 +50,14 @@ class App extends Component {
             password: '',
             enteries: 0,
             joined: ''
-        }
-    }
+}
+}
+
+class App extends Component {
+  
+    constructor() {
+      super();
+    this.state= intialState;
       }
     
     
@@ -101,8 +100,14 @@ onInputChange = (event)=> {
 onButtonSubmit= () => {
     this.setState({imageUrl: this.state.input});
     
-    app.models.predict(
-        Clarifai.FACE_DETECT_MODEL, this.state.input)
+           fetch('http://localhost:3001/imageurl ', {
+                method: 'post', //another parameter because by default fetch is GET 
+               headers: {'Content-Type':  'application/json'},
+               body: JSON.stringify({
+                   input: this.state.input,
+               })
+           })
+        .then(response => response.json())
         .then(response => {
         if(response){
             fetch('http://localhost:3001/image ', {
@@ -116,7 +121,7 @@ onButtonSubmit= () => {
             .then(count => {
                 this.setState(Object.assign(this.state.user, {enteries: count}))
             })
-        
+            .catch(console.log)
         }
 
         this.displayFaceBox(this.calculateFaceLocation(response))})
@@ -128,7 +133,7 @@ onRouteChange = (route) => {
         this.setState({isSignedIn: true})
     }
     else if(route=== 'signin') {
-        this.setState({isSignedIn: false})
+        this.setState(intialState)
     }
 
     this.setState({route: route});
