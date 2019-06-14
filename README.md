@@ -1,6 +1,6 @@
 #How to run?
 
-If you don’t have Nodejs installed, install it from here https://nodejs.org/en/download/
+If you donâ€™t have Nodejs installed, install it from here https://nodejs.org/en/download/
 
 1. Clone the repository
 2. Open repository in terminal and run "npm install" (without quotes).
@@ -14,17 +14,3 @@ You will also need Face detection backend.
 For Face Detection backend : https://github.com/aryabhatta22/FaceRecognition_backend-WebApp
 
 You might need clarifai API key for face recognition, if so get free api key from here : https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection
-
-#Sign in page
-
-
-
-
-
-#Register page
-
-
-
-#Home page
-
-
